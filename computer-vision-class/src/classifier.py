@@ -8,15 +8,16 @@
 
 """
 
+import csv
+import os
 
 import cv2
 import numpy as np
-import csv
+import pandas as pd
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.model_selection import cross_val_score
 from sklearn import svm
-import os
-import pandas as pd
+
 
 def my_hog(img):
     gx = cv2.Sobel(img, cv2.CV_32F, 1, 0)
@@ -36,6 +37,7 @@ def my_hog(img):
     norma = np.sum(hist * hist)
     hist = hist / np.sqrt(norma)
     return hist
+
 
 with open('train_labels.csv') as labels:
     reader = csv.DictReader(labels)
@@ -57,17 +59,13 @@ for filename in img_files:
 
 print(len(x_data))
 
-
-
 clf = svm.SVC()
 scores = cross_val_score(clf, x_data, y_labels, scoring=('f1_weighted'), cv=6)
 print("Accuracy: %0.5f (+/- %0.5f)" % (scores.mean(), scores.std() * 2))
 
-
 gb = GradientBoostingClassifier()
 scores = cross_val_score(gb, x_data, y_labels, scoring=('f1_weighted'), cv=6)
 print("Accuracy: %0.5f (+/- %0.5f)" % (scores.mean(), scores.std() * 2))
-
 
 test_files = os.listdir('Test')
 print(len(test_files))

@@ -1,16 +1,13 @@
-# !/usr/bin/env python3
-from __future__ import print_function
-from sys import argv
-import os.path, json
-import numpy as np
-#from matplotlib import pylab as plt
-import matplotlib.pyplot as plt
-import tkinter
-from math import log as log
-from numpy.linalg import norm
-import random
-import scipy
+import json
 import math
+import random
+import os.path
+from sys import argv
+
+import matplotlib.pyplot as plt
+import numpy as np
+from numpy.linalg import norm
+import scipy
 
 
 def generate_data(img_size, line_params, n_points, sigma, inlier_ratio):
@@ -40,7 +37,7 @@ def compute_ransac_thresh(alpha, sigma):
 
 
 def compute_ransac_iter_count(conv_prob, inlier_ratio):
-    return int(log(1 - conv_prob) / log(1 - inlier_ratio ** 2)) + 1
+    return int(math.log(1 - conv_prob) / math.log(1 - inlier_ratio ** 2)) + 1
 
 
 def compute_line_ransac(data, inlier_ratio, t, n):
@@ -71,7 +68,6 @@ def compute_line_ransac(data, inlier_ratio, t, n):
     power = lambda x, y: np.array(x) * np.array(y)
 
     if (len(best_line) > 0):
-
         x = [x[0] for x in best_line]
         y = [y[1] for y in best_line]
 
@@ -123,12 +119,10 @@ def main():
     x_line = [x[0] for x in detected_line]
     y_line = [x[1] for x in detected_line]
 
-
     plt.figure(figsize=(10, 5))
     plt.plot(x, y, 'o')
     plt.plot(x_line, y_line, 'k')
     plt.show()
-
 
 
 if __name__ == '__main__':

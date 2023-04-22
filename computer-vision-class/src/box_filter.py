@@ -1,7 +1,5 @@
-# coding=utf-8
-from __future__ import print_function
-from sys import argv
 import os.path
+from sys import argv
 
 import cv2
 import numpy as np
@@ -21,7 +19,8 @@ def box_flter(src_path, dst_path, w, h):
     # Общая сложность не более O(N), нет зависимости производительности алгоритма от w и h
     for i in range(int(h), a):
         for j in range(int(w), b):
-            img[i, j] = (img_filt[i, j] - img_filt[i, j - int(w)] - img_filt[i - int(h), j] + img_filt[i - int(h), j - int(w)]) / (int(w) * int(h))
+            img[i, j] = (img_filt[i, j] - img_filt[i, j - int(w)] - img_filt[i - int(h), j] + img_filt[
+                i - int(h), j - int(w)]) / (int(w) * int(h))
     # Происходит сохранения преобразованного изображения с обрезанием необработанных краев (срезы можно удалить)
     cv2.imwrite(dst_path, img[int(h): a, int(w): b])
 

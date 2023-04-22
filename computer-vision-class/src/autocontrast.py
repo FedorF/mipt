@@ -1,7 +1,5 @@
-# coding=utf-8
-from __future__ import print_function
-from sys import argv
 import os.path
+from sys import argv
 
 import cv2
 import numpy as np

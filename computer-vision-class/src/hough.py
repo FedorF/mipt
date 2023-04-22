@@ -1,5 +1,5 @@
-from __future__ import print_function
 from sys import argv
+
 import cv2
 import numpy as np
 
@@ -35,7 +35,7 @@ def hough_transform(img, theta, rho):
                     ht_map[np.argmin(np.abs(rhos - r))][itheta] += img[i, j]
     # Нормализуем пространство для наглядности отображения кривых
     cv2.normalize(ht_map, ht_map, 0.0, 255.0, norm_type=cv2.NORM_MINMAX)
-    #Возвращаем значения 
+    # Возвращаем значения
     return ht_map, thetas, rhos
 
 
@@ -45,7 +45,7 @@ def get_lines(ht_map, n_lines, thetas, rhos, min_delta_rho, min_delta_theta):
 
 if __name__ == '__main__':
     assert len(argv) == 9
-    src_path, dst_ht_path, dst_lines_path, theta, rho,\
+    src_path, dst_ht_path, dst_lines_path, theta, rho, \
         n_lines, min_delta_rho, min_delta_theta = argv[1:]
 
     theta = float(theta)
